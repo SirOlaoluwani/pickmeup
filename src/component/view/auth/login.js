@@ -24,6 +24,10 @@ import {
 
 
 const login = (props) => {
+  const handleChangePhoneNumber = number => {
+    console.log('Phone number changed', number);
+  };
+
   return (
     <LoginContainer>
       <FormContainer>
@@ -42,7 +46,7 @@ const login = (props) => {
         </TextView>
         <SpacerH height={50} />
 
-        <PhoneInputView />
+        <PhoneInputView onChangePhoneNumber={handleChangePhoneNumber} />
 
         <BottomFormContainerText size={'15px'}>
           Or you can sign in with:
