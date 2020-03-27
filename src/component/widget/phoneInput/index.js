@@ -22,7 +22,7 @@ const PhoneInput = props => {
   }, []);
 
   const handleSelectedCountry = iso2 => {
-    setCountryCode(iso2);
+    setCountryCode(phoneRef.current.getCountryCode());
   };
 
   const handleNumberChange = number => {
