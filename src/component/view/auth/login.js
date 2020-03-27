@@ -46,7 +46,7 @@ const login = (props) => {
         </TextView>
         <SpacerH height={50} />
 
-        <PhoneInputView onChangePhoneNumber={handleChangePhoneNumber} />
+        <PhoneInputView onChangeText={handleChangePhoneNumber} />
 
         <BottomFormContainerText size={'15px'}>
           Or you can sign in with:

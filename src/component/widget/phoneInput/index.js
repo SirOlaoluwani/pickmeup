@@ -16,22 +16,17 @@ import {
 const PhoneInput = props => {
   const phoneRef = useRef(null);
   const [countryCode, setCountryCode] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
 
   useEffect(() => {
     setCountryCode(phoneRef.current.getCountryCode());
-  });
+  }, []);
 
   const handleSelectedCountry = iso2 => {
     setCountryCode(iso2);
   };
 
   const handleNumberChange = number => {
-    setPhoneNumber(number);
-  };
-
-  const handlePhoneInputBlur = () => {
-    props.onChangePhoneNumber; (`+${countryCode}${phoneNumber}`);
+    props.onChangeText(`+${countryCode}${number}`);
   };
 
   return (
@@ -41,22 +36,34 @@ const PhoneInput = props => {
         onSelectCountry={handleSelectedCountry}
         initialCountry="ng"
         textComponent={() => (
-          <TextInputContainer>
-            <AreaCodeContainer>
-              <AreaCodeText>+{countryCode}</AreaCodeText>
-            </AreaCodeContainer>
-            <TextInputView
-              key="phone-input"
-              keyboardType="phone-pad"
-              placeholder="8168437615"
-              onChangeText={text => handleNumberChange(text)}
-              value={phoneNumber}
-            />
-          </TextInputContainer>
+          <TextComponent
+            countryCode={countryCode}
+            onChangeText={handleNumberChange}
+          />
         )}
       />
     </PhoneInputContainer>
   );
 };
 
+const TextComponent = ({countryCode, onChangeText}) => {
+  const [phoneNumber, setPhoneNumber] = useState('');
+  useEffect(() => {
+    onChangeText(phoneNumber);
+  }, [phoneNumber]);
+  return (
+    <TextInputContainer>
+      <AreaCodeContainer>
+        <AreaCodeText>+{countryCode}</AreaCodeText>
+      </AreaCodeContainer>
+      <TextInputView
+        key="phone-input"
+        keyboardType="phone-pad"
+        placeholder="8168437615"
+        onChangeText={setPhoneNumber}
+        value={phoneNumber}
+      />
+    </TextInputContainer>
+  );
+};
 export default PhoneInput;
